@@ -171,11 +171,3 @@ class ApiException implements Exception {
     this.data,
   });
 }
-
-class ApiResponse<T> {
-  String? message;
-  int code;
-  T data;
-
-  ApiResponse({this.message, required this.code, required this.data});
-}
