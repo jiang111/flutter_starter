@@ -8,7 +8,10 @@ extension ExtensionString on String? {
       EasyLoading.dismiss();
     }
     if (this != null) {
-      EasyLoading.show(status: this!);
+      EasyLoading.show(
+        status: this!,
+        maskType: EasyLoadingMaskType.clear,
+      );
     }
   }
 

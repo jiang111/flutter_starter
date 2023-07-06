@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_starter/base/theme.dart';
 import 'package:flutter_starter/test/list_page.dart';
 import 'package:flutter_starter/utils/extension_easy_loading.dart';
 import 'package:go_router/go_router.dart';
@@ -32,6 +33,11 @@ class HomePage extends ConsumerWidget {
                 child: const Text("go to list"),
                 onPressed: () {
                   context.push(RoutePaths.list);
+                }),
+            CupertinoButton(
+                child: const Text("change Theme"),
+                onPressed: () {
+                  ref.watch(themeProvider.notifier).change();
                 }),
           ],
         ),
