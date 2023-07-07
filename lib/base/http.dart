@@ -1,8 +1,12 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_starter/generated/json/base/json_convert_content.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
+///data指的是返回的数据
+typedef InterceptorResponse = Future<T?> Function<T>(dynamic data);
 
 class DioConfig {
   static const Map<String, dynamic> headers = {
@@ -11,6 +15,17 @@ class DioConfig {
 
   static String unKnowError = "未知错误";
   static String unKnowErrorJson = "Json解析出错";
+
+  ///data指的是返回的数据
+  static (bool, T?) interceptorSpecialTypeResponse<T>(dynamic data) {
+    if (T.toString() == "String") {
+      return (true, jsonEncode(data["data"]) as T?);
+    }
+    if (T.toString() == "dynamic") {
+      return (true, data["data"] as T?);
+    }
+    return (false, null);
+  }
 
   static connectTimeout() => const Duration(milliseconds: 10000);
 
@@ -46,10 +61,10 @@ class Http {
     ));
     _dio.options.baseUrl = baseUrl ?? '';
     _dio.options.headers = DioConfig.headers;
-    _dio.interceptors.addAll(DioConfig.interceptors());
+    // _dio.interceptors.addAll(DioConfig.interceptors());
   }
 
-  Future<T> get<T>(
+  Future<T?> get<T>(
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
@@ -57,6 +72,7 @@ class Http {
     Options? options,
     ProgressCallback? onReceiveProgress,
     ProgressCallback? onSendProgress,
+    bool isolate = false,
   }) async {
     return request<T>(
       path,
@@ -66,10 +82,11 @@ class Http {
       onReceiveProgress: onReceiveProgress,
       onSendProgress: onSendProgress,
       options: options ?? Options(method: 'GET'),
+      isolate: isolate,
     );
   }
 
-  Future<T> post<T>(
+  Future<T?> post<T>(
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
@@ -77,6 +94,7 @@ class Http {
     Options? options,
     ProgressCallback? onReceiveProgress,
     ProgressCallback? onSendProgress,
+    bool isolate = false,
   }) async {
     return request<T>(
       path,
@@ -86,10 +104,11 @@ class Http {
       onReceiveProgress: onReceiveProgress,
       onSendProgress: onSendProgress,
       options: options ?? Options(method: 'POST'),
+      isolate: isolate,
     );
   }
 
-  Future<T> request<T>(
+  Future<T?> request<T>(
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
@@ -97,6 +116,8 @@ class Http {
     Options? options,
     ProgressCallback? onReceiveProgress,
     ProgressCallback? onSendProgress,
+    bool isolate = false,
+    InterceptorResponse? interceptorResponse,
   }) async {
     try {
       var response = await _request(
@@ -108,7 +129,7 @@ class Http {
         onSendProgress: onSendProgress,
         options: options ?? Options(method: 'GET'),
       );
-      return await _handleResponseData<T>(response);
+      return _handleResponseData<T>(response, isolate, interceptorResponse);
     } on DioException catch (e) {
       throw ApiException(code: e.response?.statusCode ?? 0, message: e.message ?? DioConfig.unKnowError);
     } on ApiException {
@@ -138,9 +159,8 @@ class Http {
     );
   }
 
-  Future<T> _handleResponseData<T>(Response response) async {
+  Future<T?> _handleResponseData<T>(Response response, bool isolate, InterceptorResponse? interceptorResponse) async {
     int code = response.statusCode ?? 0;
-
     if (code >= 200 && code < 300) {
       var data = response.data;
       if (data is Map) {
@@ -150,7 +170,19 @@ class Http {
         if (code != 200) {
           throw ApiException(code: -1002, message: message, data: data);
         }
-        return JsonConvert.fromJsonAsT(data["data"]);
+        if (interceptorResponse != null) {
+          return await interceptorResponse(data);
+        } else {
+          var (interceptorSuccess, result) = DioConfig.interceptorSpecialTypeResponse<T>(data);
+          if (interceptorSuccess) {
+            return result;
+          }
+          if (isolate) {
+            return await compute<dynamic, T?>((data) => JsonConvert.fromJsonAsT<T>(data), data["data"]);
+          } else {
+            return JsonConvert.fromJsonAsT<T>(data["data"]);
+          }
+        }
       } else {
         throw ApiException(code: -1002, message: DioConfig.unKnowErrorJson);
       }
