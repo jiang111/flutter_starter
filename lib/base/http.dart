@@ -61,7 +61,7 @@ class Http {
     ));
     _dio.options.baseUrl = baseUrl ?? '';
     _dio.options.headers = DioConfig.headers;
-    // _dio.interceptors.addAll(DioConfig.interceptors());
+    _dio.interceptors.addAll(DioConfig.interceptors());
   }
 
   Future<T?> get<T>(
@@ -163,6 +163,7 @@ class Http {
     int code = response.statusCode ?? 0;
     if (code >= 200 && code < 300) {
       var data = response.data;
+
       if (data is Map) {
         int code = data["code"] ?? -1;
         String message = data["message"] ?? DioConfig.unKnowError;

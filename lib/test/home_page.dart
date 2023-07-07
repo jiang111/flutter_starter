@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter/base/theme.dart';
-import 'package:flutter_starter/test/list_page.dart';
+import 'package:flutter_starter/bean/user_info_entity.dart';
 import 'package:flutter_starter/utils/extension_easy_loading.dart';
 import 'package:go_router/go_router.dart';
 
+import '../base/http.dart';
 import '../base/router.dart';
+import '../utils/utils.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -22,7 +23,7 @@ class HomePage extends ConsumerWidget {
         child: Column(
           children: [
             CupertinoButton(
-                child: const Text("show loading dialog"),
+                child: const Text("显示loading样式"),
                 onPressed: () {
                   "请稍等...".eLoading();
                   Future.delayed(const Duration(seconds: 3), () {
@@ -30,14 +31,26 @@ class HomePage extends ConsumerWidget {
                   });
                 }),
             CupertinoButton(
-                child: const Text("go to list"),
+                child: const Text("列表分页加载"),
                 onPressed: () {
                   context.push(RoutePaths.list);
                 }),
             CupertinoButton(
-                child: const Text("change Theme"),
+                child: const Text("切换多种主题"),
                 onPressed: () {
                   ref.watch(themeProvider.notifier).change();
+                }),
+            CupertinoButton(
+                child: const Text("网络请求"),
+                onPressed: () async {
+                  commit<String?>(
+                      () async {
+                        return Http().get<String>("https://baidu.com", isolate: true);
+                      },
+                      success: "提交成功",
+                      after: (t) {
+                        print(t);
+                      });
                 }),
           ],
         ),
