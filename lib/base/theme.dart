@@ -33,12 +33,23 @@ class ThemeViewModel extends StateNotifier<BaseTheme> {
 
 abstract class BaseTheme {
   ThemeData themeData();
+
+  Color xff00ff();
+
+  static BaseTheme of(WidgetRef ref) {
+    return ref.watch(themeProvider);
+  }
 }
 
 class LightTheme extends BaseTheme {
   @override
   ThemeData themeData() {
     return ThemeData.light();
+  }
+
+  @override
+  Color xff00ff() {
+    return const Color(0xffff00ff);
   }
 }
 
@@ -47,11 +58,21 @@ class DarkTheme extends BaseTheme {
   ThemeData themeData() {
     return ThemeData.dark();
   }
+
+  @override
+  Color xff00ff() {
+    return const Color(0xff00ff00);
+  }
 }
 
 class Material3Theme extends BaseTheme {
   @override
   ThemeData themeData() {
     return ThemeData.light().copyWith(useMaterial3: true);
+  }
+
+  @override
+  Color xff00ff() {
+    return const Color(0xff00ffff);
   }
 }
