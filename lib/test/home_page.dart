@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter/base/theme.dart';
-import 'package:flutter_starter/bean/user_info_entity.dart';
 import 'package:flutter_starter/utils/extension_easy_loading.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_starter/utils/extension_log.dart';
 
 import '../base/http.dart';
 import '../base/router.dart';
@@ -74,7 +73,7 @@ class HomePage extends ConsumerWidget {
                       },
                       success: "提交成功",
                       after: (t) {
-                        print(t);
+                        t.i();
                       });
                 }),
           ],
