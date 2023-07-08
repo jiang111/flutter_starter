@@ -33,12 +33,22 @@ class HomePage extends ConsumerWidget {
             CupertinoButton(
                 child: const Text("列表分页加载"),
                 onPressed: () {
-                  context.push(RoutePaths.list);
+                  appRouter.push(RoutePaths.list);
                 }),
             CupertinoButton(
-                child: const Text("切换多种主题"),
+                child: const Text("切换黑色主题"),
                 onPressed: () {
-                  ref.watch(themeProvider.notifier).change();
+                  ref.watch(themeProvider.notifier).change(1);
+                }),
+            CupertinoButton(
+                child: const Text("切换Material3主题"),
+                onPressed: () {
+                  ref.watch(themeProvider.notifier).change(2);
+                }),
+            CupertinoButton(
+                child: const Text("重置主题"),
+                onPressed: () {
+                  ref.watch(themeProvider.notifier).change(0);
                 }),
             CupertinoButton(
                 child: const Text("网络请求"),
