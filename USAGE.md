@@ -61,3 +61,18 @@ class ListNotify extends BaseListNotify<String> {
   }
 }
 ```
+
+
+## iOS的plist文件配置
+```agsl
+	<key>NSMicrophoneUsageDescription</key>
+    <string>App需要您的同意,才能访问麦克风</string>
+	<key>NSCameraUsageDescription</key>
+	<string>若不允许，你将无法拍照</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>若不允许，你将无法上传及保存相册照片</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+
+
+```

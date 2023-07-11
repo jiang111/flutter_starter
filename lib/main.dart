@@ -51,7 +51,9 @@ class MyApp extends ConsumerWidget {
         supportedLocales: const [
           Locale('zh'),
         ],
-        builder: EasyLoading.init(),
+        builder: (context, child) {
+          return FlutterEasyLoading(child: child);
+        },
         routerConfig: appRouter,
       ),
     );

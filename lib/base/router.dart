@@ -8,6 +8,8 @@ import 'package:flutter_starter/test/list_page.dart';
 import 'package:flutter_starter/test/login_page.dart';
 import 'package:go_router/go_router.dart';
 
+import '../initial.dart';
+
 class RoutePaths {
   static List<String> ignoreInterceptor = [main, home];
 
@@ -21,6 +23,7 @@ class RoutePaths {
 
 final appRouter = GoRouter(
   debugLogDiagnostics: !kReleaseMode,
+  navigatorKey: Initial.alice.getNavigatorKey(),
   initialLocation: RoutePaths.main,
   redirect: (context, state) => loginInterceptor(context, state),
   routes: [

@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter/base/theme.dart';
-import 'package:flutter_starter/utils/extension_easy_loading.dart';
-import 'package:flutter_starter/utils/extension_log.dart';
+import 'package:flutter_starter/utils/extension_string.dart';
+import 'package:flutter_starter/utils/extension_object.dart';
 
 import '../base/http.dart';
 import '../base/router.dart';
+import '../initial.dart';
 import '../utils/utils.dart';
 
 class HomePage extends ConsumerWidget {
@@ -63,6 +64,13 @@ class HomePage extends ConsumerWidget {
                 ),
                 onPressed: () {
                   ref.watch(themeProvider.notifier).change(0);
+                }),
+            CupertinoButton(
+                child: const Text(
+                  "网络请求日志",
+                ),
+                onPressed: () {
+                  Initial.alice.showInspector();
                 }),
             CupertinoButton(
                 child: const Text("网络请求"),

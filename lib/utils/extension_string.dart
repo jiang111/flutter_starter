@@ -1,4 +1,5 @@
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_starter/utils/sp_utils.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 ///easyLoading 和 flutter_toast 扩展
@@ -36,6 +37,11 @@ extension ExtensionString on String? {
   void toast() {
     if (this == null) return;
     Fluttertoast.showToast(msg: this!);
+  }
+
+  void save2SP(String key) {
+    if (this == null) return;
+    SpUtil.putString(key, this!);
   }
 }
 

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_starter/generated/json/base/json_convert_content.dart';
+import 'package:flutter_starter/initial.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 ///data指的是返回的数据
@@ -43,6 +44,7 @@ class DioConfig {
           compact: true,
           maxWidth: 90,
         ),
+        Initial.alice.getDioInterceptor(),
       ];
 }
 
