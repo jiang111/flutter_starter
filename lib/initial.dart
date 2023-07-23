@@ -1,8 +1,8 @@
 import 'package:alice/alice.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_starter/utils/sp_utils.dart';
 
 import 'base/http.dart';
-import 'utils/sp_utils.dart';
 
 class Initial {
   static Alice alice = Alice(
