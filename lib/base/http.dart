@@ -18,13 +18,19 @@ class DioConfig {
   static String unKnowError = "未知错误";
   static String unKnowErrorJson = "Json解析出错";
 
-  ///data指的是返回的数据
+  ///服务器返回的格式默认为
+  ///{"code":200,"msg:"成功","data":{}/[]}
+  static String code = "code";
+  static String msg = "msg";
+  static String data = "data";
+
+  ///data参数指的是返回的完整的数据体
   static (bool, T?) interceptorSpecialTypeResponse<T>(dynamic data) {
     if (T.toString() == "String") {
-      return (true, jsonEncode(data["data"]) as T?);
+      return (true, jsonEncode(data[DioConfig.data]) as T?);
     }
     if (T.toString() == "dynamic") {
-      return (true, data["data"] as T?);
+      return (true, data[DioConfig.data] as T?);
     }
     return (false, null);
   }
@@ -168,8 +174,8 @@ class Http {
       var data = response.data;
 
       if (data is Map) {
-        int code = data["code"] ?? -1;
-        String message = data["message"] ?? DioConfig.unKnowError;
+        int code = data[DioConfig.code] ?? -1;
+        String message = data[DioConfig.msg] ?? DioConfig.unKnowError;
 
         if (code != 200) {
           throw ApiException(code: -1002, message: message, data: data);
@@ -182,9 +188,9 @@ class Http {
             return result;
           }
           if (isolate) {
-            return await compute<dynamic, T?>((data) => JsonConvert.fromJsonAsT<T>(data), data["data"]);
+            return await compute<dynamic, T?>((data) => JsonConvert.fromJsonAsT<T>(data), data[DioConfig.data]);
           } else {
-            return JsonConvert.fromJsonAsT<T>(data["data"]);
+            return JsonConvert.fromJsonAsT<T>(data[DioConfig.data]);
           }
         }
       } else {

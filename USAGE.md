@@ -1,5 +1,9 @@
 ## 打印日志
 
+
+所有的基础配置全部在initial类里
+
+
 ```dart
 import 'extension_log.dart';
 '请求出错'.e();

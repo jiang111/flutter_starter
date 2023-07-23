@@ -5,6 +5,7 @@ import 'package:flutter_starter/utils/sp_utils.dart';
 import 'base/http.dart';
 
 class Initial {
+  static String baseUrl = "";
   static Alice alice = Alice(
     showNotification: true,
     showInspectorOnShake: true,
@@ -14,6 +15,6 @@ class Initial {
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
     await SpUtil.getInstance();
-    Http.init();
+    Http.init(baseUrl: baseUrl);
   }
 }
