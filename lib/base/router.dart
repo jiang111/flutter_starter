@@ -29,11 +29,11 @@ final appRouter = GoRouter(
   routes: [
     GoRoute(
       path: RoutePaths.main,
-      builder: (context, state) => const HomePage(),
+      builder: (context, state) => HomePage(),
     ),
     GoRoute(
       path: RoutePaths.home,
-      builder: (context, state) => const HomePage(),
+      builder: (context, state) => HomePage(),
     ),
     GoRoute(
       path: RoutePaths.login,

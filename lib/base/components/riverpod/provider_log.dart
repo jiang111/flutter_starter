@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_starter/utils/extension_object.dart';
 
 class ProviderLogger extends ProviderObserver {
   @override
@@ -8,6 +9,6 @@ class ProviderLogger extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    // logI('[${provider.name ?? provider.runtimeType}] expose: $newValue');
+   '[${provider.name ?? provider.runtimeType}] expose: $newValue'.i();
   }
 }

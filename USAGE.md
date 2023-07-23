@@ -1,31 +1,31 @@
 ## 打印日志
 
-```agsl
+```dart
 import 'extension_log.dart';
-"请求出错".e();
-"请求出错".w();
+'请求出错'.e();
+'请求出错'.w();
 ```
 
 ## loading对话框展示
 
-```agsl
+```dart
 import 'extension_easy_loading.dart';
-"请稍等...".eLoading();
-"成功".eSuccess();
-"失败".eFail();
-"吐司".toast();
+'请稍等...'.eLoading();
+'成功'.eSuccess();
+'失败'.eFail();
+'吐司'.toast();
 
 ```
 
 ## 本地存储SP
 
-```agsl
+```dart
 SpUtil.put();
 ```
 
 ## 分页请求
 
-```agsl
+```dart
 BaseList<String>(
         builder: (context, data, _) => ListView.separated(
           padding: EdgeInsets.zero,
@@ -56,7 +56,7 @@ class ListNotify extends BaseListNotify<String> {
   @override
   Future<List<String>> fetchPage(int page) async {
     return Future.delayed(const Duration(seconds: 1), () {
-      return List.generate(pageSize, (index) => "$index");
+      return List.generate(pageSize, (index) => '$index');
     });
   }
 }
@@ -64,7 +64,7 @@ class ListNotify extends BaseListNotify<String> {
 
 
 ## iOS的plist文件配置
-```agsl
+```dart
 	<key>NSMicrophoneUsageDescription</key>
     <string>App需要您的同意,才能访问麦克风</string>
 	<key>NSCameraUsageDescription</key>
