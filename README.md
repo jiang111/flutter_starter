@@ -5,8 +5,6 @@ a starter base on myself project
 本人使用的flutter项目构建模板
 
 
-## Tech Stack
-
 
 - ⚡️ [Flutter](https://github.com/flutter/flutter), [Dart](https://github.com/dart-lang) - Build apps for any screen
 
