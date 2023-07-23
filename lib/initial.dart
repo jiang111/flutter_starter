@@ -1,5 +1,6 @@
 import 'package:alice/alice.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_starter/utils/sp_utils.dart';
 
 import 'base/http.dart';
@@ -16,5 +17,12 @@ class Initial {
     WidgetsFlutterBinding.ensureInitialized();
     await SpUtil.getInstance();
     Http.init(baseUrl: baseUrl);
+    //全局竖屏处理
+    await SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
+    );
   }
 }

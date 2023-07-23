@@ -26,6 +26,10 @@ class DioConfig {
 
   ///data参数指的是返回的完整的数据体
   static (bool, T?) interceptorSpecialTypeResponse<T>(dynamic data) {
+    //T.toString()不支持web
+    if (kIsWeb) {
+      return (false, null);
+    }
     if (T.toString() == "String") {
       return (true, jsonEncode(data[DioConfig.data]) as T?);
     }

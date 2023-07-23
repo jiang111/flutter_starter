@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -43,6 +44,12 @@ extension ExtensionString on String? {
   void save2SP(String key) {
     if (this == null) return;
     SpUtil.putString(key, this!);
+  }
+
+  void toClipboard() {
+    if (this == null) return;
+    Clipboard.setData(ClipboardData(text: this!));
+    "已复制".toast();
   }
 }
 

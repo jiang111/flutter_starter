@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_starter/base/user_info.dart';
+import 'package:flutter_starter/test/splash.dart';
 import '../test/home_page.dart';
 import '../test/list_page.dart';
 import '../test/login_page.dart';
@@ -29,11 +29,11 @@ final appRouter = GoRouter(
   routes: [
     GoRoute(
       path: RoutePaths.main,
-      builder: (context, state) => HomePage(),
+      builder: (context, state) => const SplashPage(),
     ),
     GoRoute(
       path: RoutePaths.home,
-      builder: (context, state) => HomePage(),
+      builder: (context, state) => const HomePage(),
     ),
     GoRoute(
       path: RoutePaths.login,
@@ -61,5 +61,5 @@ FutureOr<String?> loginInterceptor(BuildContext context, GoRouterState state) {
 }
 
 bool isLogin() {
-  return Random().nextBool();
+  return UserInfo.instance().isLogin();
 }

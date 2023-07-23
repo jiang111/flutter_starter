@@ -44,7 +44,14 @@ abstract class BaseTheme {
 class LightTheme extends BaseTheme {
   @override
   ThemeData themeData() {
-    return ThemeData.light();
+    return ThemeData.light().copyWith(
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        },
+      ),
+    );
   }
 
   @override
@@ -56,7 +63,14 @@ class LightTheme extends BaseTheme {
 class DarkTheme extends BaseTheme {
   @override
   ThemeData themeData() {
-    return ThemeData.dark();
+    return ThemeData.dark().copyWith(
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        },
+      ),
+    );
   }
 
   @override
