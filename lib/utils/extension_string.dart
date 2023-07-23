@@ -1,6 +1,7 @@
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_starter/utils/sp_utils.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import 'sp_utils.dart';
 
 ///easyLoading 和 flutter_toast 扩展
 extension ExtensionString on String? {

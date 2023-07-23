@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_starter/base/theme.dart';
+import './base/theme.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'base/components/riverpod/provider_log.dart';

@@ -1,5 +1,5 @@
-import 'package:flutter_starter/base/http.dart';
-import 'package:flutter_starter/utils/extension_string.dart';
+import '../utils/extension_string.dart';
+import '../base/http.dart';
 
 typedef CommitFunction<T> = Future<T> Function();
 typedef CompleteFunction<T> = void Function(T t);

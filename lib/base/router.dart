@@ -3,9 +3,9 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_starter/test/home_page.dart';
-import 'package:flutter_starter/test/list_page.dart';
-import 'package:flutter_starter/test/login_page.dart';
+import '../test/home_page.dart';
+import '../test/list_page.dart';
+import '../test/login_page.dart';
 import 'package:go_router/go_router.dart';
 
 import '../initial.dart';

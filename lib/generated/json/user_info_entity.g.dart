@@ -1,5 +1,5 @@
-import 'package:flutter_starter/generated/json/base/json_convert_content.dart';
-import 'package:flutter_starter/bean/user_info_entity.dart';
+import '../../generated/json/base/json_convert_content.dart';
+import '../../bean/user_info_entity.dart';
 
 UserInfoEntity $UserInfoEntityFromJson(Map<String, dynamic> json) {
 	final UserInfoEntity userInfoEntity = UserInfoEntity();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_starter/base/components/riverpod/base_list_widget.dart';
+import '../base/components/riverpod/base_list_widget.dart';
 
 import '../base/components/riverpod/base_list_notify.dart';
 

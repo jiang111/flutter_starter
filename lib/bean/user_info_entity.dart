@@ -1,5 +1,5 @@
-import 'package:flutter_starter/generated/json/base/json_field.dart';
-import 'package:flutter_starter/generated/json/user_info_entity.g.dart';
+import '../generated/json/base/json_field.dart';
+import '../generated/json/user_info_entity.g.dart';
 import 'dart:convert';
 
 @JsonSerializable()
