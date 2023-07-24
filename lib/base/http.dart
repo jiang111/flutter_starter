@@ -77,6 +77,8 @@ class Http {
     _dio.interceptors.addAll(DioConfig.interceptors());
   }
 
+  Dio get dio => _dio;
+
   Future<T?> get<T>(
     String path, {
     dynamic data,

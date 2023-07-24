@@ -78,7 +78,7 @@ class HomePage extends ConsumerWidget {
                 onPressed: () async {
                   commit<String?>(
                       () async {
-                        return Http().get<String>("https://baidu.com", isolate: true);
+                        return Http().get<String>("https://newtab.work", isolate: true);
                       },
                       success: "提交成功",
                       after: (t) {
