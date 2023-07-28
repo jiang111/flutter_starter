@@ -12,7 +12,8 @@ class AppKeepAlive extends StatefulWidget {
   State<AppKeepAlive> createState() => _AppKeepAliveState();
 }
 
-class _AppKeepAliveState extends State<AppKeepAlive> with AutomaticKeepAliveClientMixin {
+class _AppKeepAliveState extends State<AppKeepAlive>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);

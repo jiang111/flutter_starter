@@ -36,7 +36,8 @@ class ListPage extends ConsumerWidget {
   }
 }
 
-final listProvider = AsyncNotifierProvider.autoDispose.family<ListNotify, List<String>, BaseListBean>(
+final listProvider = AsyncNotifierProvider.autoDispose
+    .family<ListNotify, List<String>, BaseListBean>(
   () => ListNotify(),
   name: 'listProvider',
 );

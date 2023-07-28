@@ -6,7 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'base_list_widget.dart';
 
-abstract class BaseListNotify<T> extends AutoDisposeFamilyAsyncNotifier<List<T>, BaseListBean> {
+abstract class BaseListNotify<T>
+    extends AutoDisposeFamilyAsyncNotifier<List<T>, BaseListBean> {
   int page = 1;
   int pageSize = 20;
   bool error = false;
@@ -77,7 +78,8 @@ abstract class BaseListNotify<T> extends AutoDisposeFamilyAsyncNotifier<List<T>,
     }
   }
 
-  Future<void> loadData({bool refresh = false, bool showLoadingState = false}) async {
+  Future<void> loadData(
+      {bool refresh = false, bool showLoadingState = false}) async {
     try {
       if (refresh) {
         if (showLoadingState) {

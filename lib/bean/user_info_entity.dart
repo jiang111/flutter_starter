@@ -4,18 +4,19 @@ import 'dart:convert';
 
 @JsonSerializable()
 class UserInfoEntity {
-	String? name;
-	int? age;
-	String? address;
+  String? name;
+  int? age;
+  String? address;
 
-	UserInfoEntity();
+  UserInfoEntity();
 
-	factory UserInfoEntity.fromJson(Map<String, dynamic> json) => $UserInfoEntityFromJson(json);
+  factory UserInfoEntity.fromJson(Map<String, dynamic> json) =>
+      $UserInfoEntityFromJson(json);
 
-	Map<String, dynamic> toJson() => $UserInfoEntityToJson(this);
+  Map<String, dynamic> toJson() => $UserInfoEntityToJson(this);
 
-	@override
-	String toString() {
-		return jsonEncode(this);
-	}
+  @override
+  String toString() {
+    return jsonEncode(this);
+  }
 }

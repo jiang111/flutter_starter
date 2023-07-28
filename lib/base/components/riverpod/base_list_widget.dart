@@ -5,7 +5,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../multi_state_widget.dart';
 import 'base_list_notify.dart';
 
-typedef WidgetBuilder<T> = Widget Function(BuildContext context, List<T> data, BaseListBean baseListBean);
+typedef WidgetBuilder<T> = Widget Function(
+    BuildContext context, List<T> data, BaseListBean baseListBean);
 
 class BaseListBean {
   RefreshController? controller;
@@ -13,7 +14,8 @@ class BaseListBean {
 }
 
 class BaseList<T> extends ConsumerStatefulWidget {
-  final AutoDisposeAsyncNotifierProviderFamily<BaseListNotify<T>, List<T>, BaseListBean> provider;
+  final AutoDisposeAsyncNotifierProviderFamily<BaseListNotify<T>, List<T>,
+      BaseListBean> provider;
 
   final WidgetBuilder<T> builder;
   final bool enablePullDown;
@@ -65,8 +67,12 @@ class _BaseListState<T> extends ConsumerState<BaseList<T>> {
             enablePullDown: widget.enablePullDown,
             enablePullUp: widget.enablePullUp,
             controller: refreshController,
-            onRefresh: () => ref.watch(widget.provider(_baseListBean).notifier).loadData(refresh: true),
-            onLoading: () => ref.watch(widget.provider(_baseListBean).notifier).loadData(refresh: false),
+            onRefresh: () => ref
+                .watch(widget.provider(_baseListBean).notifier)
+                .loadData(refresh: true),
+            onLoading: () => ref
+                .watch(widget.provider(_baseListBean).notifier)
+                .loadData(refresh: false),
             child: widget.builder(context, data, _baseListBean),
           );
         });

@@ -11,9 +11,9 @@ typedef JsonConvertFunction<T> = T Function(Map<String, dynamic> json);
 typedef EnumConvertFunction<T> = T Function(String value);
 
 class JsonConvert {
-	static final Map<String, JsonConvertFunction> convertFuncMap = {
-		(UserInfoEntity).toString(): UserInfoEntity.fromJson,
-	};
+  static final Map<String, JsonConvertFunction> convertFuncMap = {
+    (UserInfoEntity).toString(): UserInfoEntity.fromJson,
+  };
 
   T? convert<T>(dynamic value, {EnumConvertFunction? enumConvert}) {
     if (value == null) {
@@ -30,24 +30,30 @@ class JsonConvert {
     }
   }
 
-  List<T?>? convertList<T>(List<dynamic>? value, {EnumConvertFunction? enumConvert}) {
+  List<T?>? convertList<T>(List<dynamic>? value,
+      {EnumConvertFunction? enumConvert}) {
     if (value == null) {
       return null;
     }
     try {
-      return value.map((dynamic e) => _asT<T>(e,enumConvert: enumConvert)).toList();
+      return value
+          .map((dynamic e) => _asT<T>(e, enumConvert: enumConvert))
+          .toList();
     } catch (e, stackTrace) {
       debugPrint('asT<$T> $e $stackTrace');
       return <T>[];
     }
   }
 
-List<T>? convertListNotNull<T>(dynamic value, {EnumConvertFunction? enumConvert}) {
+  List<T>? convertListNotNull<T>(dynamic value,
+      {EnumConvertFunction? enumConvert}) {
     if (value == null) {
       return null;
     }
     try {
-      return (value as List<dynamic>).map((dynamic e) => _asT<T>(e,enumConvert: enumConvert)!).toList();
+      return (value as List<dynamic>)
+          .map((dynamic e) => _asT<T>(e, enumConvert: enumConvert)!)
+          .toList();
     } catch (e, stackTrace) {
       debugPrint('asT<$T> $e $stackTrace');
       return <T>[];
@@ -89,22 +95,26 @@ List<T>? convertListNotNull<T>(dynamic value, {EnumConvertFunction? enumConvert}
     }
   }
 
-	//list is returned by type
-	static M? _getListChildType<M>(List<Map<String, dynamic>> data) {
-		if(<UserInfoEntity>[] is M){
-			return data.map<UserInfoEntity>((Map<String, dynamic> e) => UserInfoEntity.fromJson(e)).toList() as M;
-		}
+  //list is returned by type
+  static M? _getListChildType<M>(List<Map<String, dynamic>> data) {
+    if (<UserInfoEntity>[] is M) {
+      return data
+          .map<UserInfoEntity>(
+              (Map<String, dynamic> e) => UserInfoEntity.fromJson(e))
+          .toList() as M;
+    }
 
-		debugPrint("${M.toString()} not found");
-	
-		return null;
-}
+    debugPrint("${M.toString()} not found");
 
-	static M? fromJsonAsT<M>(dynamic json) {
-		if (json is List) {
-			return _getListChildType<M>(json.map((e) => e as Map<String, dynamic>).toList());
-		} else {
-			return jsonConvert.convert<M>(json);
-		}
-	}
+    return null;
+  }
+
+  static M? fromJsonAsT<M>(dynamic json) {
+    if (json is List) {
+      return _getListChildType<M>(
+          json.map((e) => e as Map<String, dynamic>).toList());
+    } else {
+      return jsonConvert.convert<M>(json);
+    }
+  }
 }

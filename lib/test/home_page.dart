@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../utils/common_utils.dart';
-import '../utils/extension_object.dart';
 import '../base/theme.dart';
-import '../utils/extension_string.dart';
 
 import '../base/http.dart';
 import '../base/router.dart';
@@ -78,7 +75,8 @@ class HomePage extends ConsumerWidget {
                 onPressed: () async {
                   commit<String?>(
                       () async {
-                        return Http().get<String>("https://newtab.work", isolate: true);
+                        return Http()
+                            .get<String>("https://newtab.work", isolate: true);
                       },
                       success: "提交成功",
                       after: (t) {

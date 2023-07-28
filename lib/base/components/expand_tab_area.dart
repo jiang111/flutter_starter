@@ -36,7 +36,8 @@ class _TmpGestureArenaMember extends GestureArenaMember {
   void rejectGesture(int key) {}
 }
 
-class _ExpandTapRenderBox extends RenderBox with RenderObjectWithChildMixin<RenderBox> {
+class _ExpandTapRenderBox extends RenderBox
+    with RenderObjectWithChildMixin<RenderBox> {
   _ExpandTapRenderBox({
     required this.onTap,
     this.tapPadding = EdgeInsets.zero,
@@ -94,7 +95,8 @@ class _ExpandTapRenderBox extends RenderBox with RenderObjectWithChildMixin<Rend
       size.height + tapPadding.top + tapPadding.bottom,
     );
     if (expandRect.contains(position!)) {
-      bool hitTarget = hitTestChildren(result, position: position) || hitTestSelf(position);
+      bool hitTarget =
+          hitTestChildren(result, position: position) || hitTestSelf(position);
       if (hitTarget) {
         result.add(BoxHitTestEntry(this, position));
         return true;

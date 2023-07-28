@@ -20,7 +20,8 @@ class AppTabBar extends StatefulWidget {
   State<AppTabBar> createState() => _AppTabBarState();
 }
 
-class _AppTabBarState extends State<AppTabBar> with SingleTickerProviderStateMixin {
+class _AppTabBarState extends State<AppTabBar>
+    with SingleTickerProviderStateMixin {
   late TabController controller;
 
   @override

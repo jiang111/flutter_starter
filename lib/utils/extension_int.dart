@@ -14,10 +14,12 @@ extension ExtensionInt on int {
   }
 
   EdgeInsets paddingHorizontal({int vertical = 0}) {
-    return EdgeInsets.symmetric(horizontal: toDouble(), vertical: vertical.toDouble());
+    return EdgeInsets.symmetric(
+        horizontal: toDouble(), vertical: vertical.toDouble());
   }
 
   EdgeInsets paddingVertical({int horizontal = 0}) {
-    return EdgeInsets.symmetric(vertical: toDouble(), horizontal: horizontal.toDouble());
+    return EdgeInsets.symmetric(
+        vertical: toDouble(), horizontal: horizontal.toDouble());
   }
 }

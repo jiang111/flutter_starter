@@ -16,7 +16,9 @@ mixin LazyLoadState<T extends StatefulWidget> on State<T> {
         }
       }
 
-      if (route == null || route.animation == null || route.animation!.status == AnimationStatus.completed) {
+      if (route == null ||
+          route.animation == null ||
+          route.animation!.status == AnimationStatus.completed) {
         onLazyLoad();
       } else {
         route.animation!.addStatusListener(handler);
