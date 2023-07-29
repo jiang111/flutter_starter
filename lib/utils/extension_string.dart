@@ -13,6 +13,10 @@ extension ExtensionString on String? {
     return this == null || this!.isEmpty;
   }
 
+  String string({String defaultValue = ""}) {
+    return this ?? defaultValue;
+  }
+
   bool isNotEmpty() {
     return !isEmpty();
   }
