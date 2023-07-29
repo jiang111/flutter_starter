@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
 var _logger = Logger();
@@ -31,5 +32,26 @@ extension ExtensionLog on Object? {
   void wtf() {
     if (this == null) return;
     _logger.log(Level.wtf, this);
+  }
+}
+
+extension ExtensionList on List? {
+  bool get isNullOrEmpty => this == null || this!.isEmpty;
+
+  bool get isNotNullOrEmpty => !isNullOrEmpty;
+
+  Widget toList({required NullableIndexedWidgetBuilder itemBuilder, IndexedWidgetBuilder? separatorBuilder}) {
+    if (separatorBuilder != null) {
+      return ListView.separated(
+        itemBuilder: itemBuilder,
+        itemCount: this?.length ?? 0,
+        separatorBuilder: separatorBuilder,
+      );
+    }
+
+    return ListView.builder(
+      itemBuilder: itemBuilder,
+      itemCount: this?.length ?? 0,
+    );
   }
 }

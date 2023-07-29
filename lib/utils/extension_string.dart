@@ -1,11 +1,22 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_starter/utils/extension_widget.dart';
+import 'package:flutter_starter/utils/utils.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import 'sp_utils.dart';
 
 ///easyLoading 和 flutter_toast 扩展
 extension ExtensionString on String? {
+  bool isEmpty() {
+    return this == null || this!.isEmpty;
+  }
+
+  bool isNotEmpty() {
+    return !isEmpty();
+  }
+
   void eLoading() {
     if (EasyLoading.isShow) {
       EasyLoading.dismiss();
@@ -16,6 +27,17 @@ extension ExtensionString on String? {
         maskType: EasyLoadingMaskType.clear,
       );
     }
+  }
+
+  Widget toText({TextStyle? style, double? size, Color? color}) {
+    return Text(
+      this ?? "",
+      style: style ??
+          TextStyle(
+            color: color,
+            fontSize: size,
+          ),
+    );
   }
 
   void eFail() {
@@ -50,6 +72,16 @@ extension ExtensionString on String? {
     if (this == null) return;
     Clipboard.setData(ClipboardData(text: this!));
     "已复制".toast();
+  }
+
+  Widget action(VoidCallback onPressed, {TextStyle? style}) {
+    return (this ?? "").toText(style: style).padding(15.paddingHorizontal()).click(onPressed);
+  }
+}
+
+extension ExtensionIconData on IconData {
+  Widget action(VoidCallback onPressed, {Color? color, double? size}) {
+    return Icon(this, color: color, size: size).padding(15.paddingHorizontal()).click(onPressed);
   }
 }
 

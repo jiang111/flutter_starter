@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_starter/utils/extension_widget.dart';
 import '../base/theme.dart';
 
 import '../base/http.dart';
@@ -33,26 +34,24 @@ class HomePage extends ConsumerWidget {
                 onPressed: () {
                   appRouter.push(RoutePaths.list);
                 }),
-            CupertinoButton(
-                child: Text(
-                  "切换黑色主题",
-                  style: TextStyle(
-                    color: BaseTheme.of(ref).xff00ff(),
-                  ),
-                ),
-                onPressed: () {
-                  ref.watch(themeProvider.notifier).change(1);
-                }),
-            CupertinoButton(
-                child: Text(
-                  "切换Material3主题",
-                  style: TextStyle(
-                    color: BaseTheme.of(ref).xff00ff(),
-                  ),
-                ),
-                onPressed: () {
-                  ref.watch(themeProvider.notifier).change(2);
-                }),
+            "切换黑色主题"
+                .toText(
+              color: BaseTheme.of(ref).xff00ff(),
+            )
+                .click(() {
+              ref.watch(themeProvider.notifier).change(1);
+            }).padding(15.paddingAll()),
+            "切换Material3主题"
+                .toText(
+              style: BaseTheme.of(ref).xff00ff().textStyle(),
+            )
+                .click(
+              () {
+                ref.watch(themeProvider.notifier).change(2);
+              },
+            ).container(
+              padding: 15.paddingAll(),
+            ),
             CupertinoButton(
                 child: Text(
                   "重置主题",
@@ -75,8 +74,7 @@ class HomePage extends ConsumerWidget {
                 onPressed: () async {
                   commit<String?>(
                       () async {
-                        return Http()
-                            .get<String>("https://newtab.work", isolate: true);
+                        return Http().get<String>("https://newtab.work", isolate: true);
                       },
                       success: "提交成功",
                       after: (t) {

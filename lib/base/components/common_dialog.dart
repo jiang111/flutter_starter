@@ -6,7 +6,7 @@ class CommonDialog extends StatelessWidget {
   final String? content;
   final String? confirmText;
   final VoidCallback confirmCallback;
-  final bool hideCancel;
+  final bool hideCancelBtn;
   final bool autoPop;
 
   const CommonDialog({
@@ -14,7 +14,7 @@ class CommonDialog extends StatelessWidget {
     this.title,
     required this.autoPop,
     this.content,
-    this.hideCancel = false,
+    required this.hideCancelBtn,
     this.confirmText,
     required this.confirmCallback,
   });
@@ -24,7 +24,7 @@ class CommonDialog extends StatelessWidget {
     return CupertinoAlertDialog(
       title: title == null ? null : Text(title!),
       content: content == null ? null : Text(content!),
-      actions: hideCancel
+      actions: hideCancelBtn
           ? [
               CupertinoDialogAction(
                 isDestructiveAction: false,
@@ -78,7 +78,7 @@ Future<T?> showCommonDialog<T>(
   bool autoPop = true,
   String? content,
   bool barrierDismissible = true,
-  bool? hideCancel,
+  bool hideCancelBtn = false,
   String? confirmText,
   required VoidCallback confirmCallback,
 }) {
@@ -91,7 +91,7 @@ Future<T?> showCommonDialog<T>(
         content: content,
         autoPop: autoPop,
         confirmText: confirmText,
-        hideCancel: hideCancel ?? false,
+        hideCancelBtn: hideCancelBtn,
         confirmCallback: confirmCallback,
       );
     },
