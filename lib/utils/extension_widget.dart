@@ -25,6 +25,13 @@ extension ExtensionWidget on Widget {
     );
   }
 
+  Widget visible(bool visible) {
+    return Visibility(
+      visible: visible,
+      child: this,
+    );
+  }
+
   Widget expanded({int flex = 1}) {
     return Expanded(
       flex: flex,
