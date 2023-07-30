@@ -26,12 +26,12 @@ extension ExtensionLog on Object? {
 
   void v() {
     if (this == null) return;
-    _logger.log(Level.verbose, this);
+    _logger.log(Level.trace, this);
   }
 
-  void wtf() {
+  void fatal() {
     if (this == null) return;
-    _logger.log(Level.wtf, this);
+    _logger.log(Level.fatal, this);
   }
 
 }
