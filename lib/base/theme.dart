@@ -32,7 +32,7 @@ class ThemeViewModel extends StateNotifier<BaseTheme> {
 }
 
 abstract class BaseTheme {
-  ThemeData themeData();
+  ThemeData theme();
 
   Color xff00ff();
 
@@ -43,8 +43,9 @@ abstract class BaseTheme {
 
 class LightTheme extends BaseTheme {
   @override
-  ThemeData themeData() {
+  ThemeData theme() {
     return ThemeData.light().copyWith(
+      useMaterial3: false,
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.android: CupertinoPageTransitionsBuilder(),
@@ -62,8 +63,9 @@ class LightTheme extends BaseTheme {
 
 class DarkTheme extends BaseTheme {
   @override
-  ThemeData themeData() {
+  ThemeData theme() {
     return ThemeData.dark().copyWith(
+      useMaterial3: false,
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.android: CupertinoPageTransitionsBuilder(),
@@ -81,7 +83,7 @@ class DarkTheme extends BaseTheme {
 
 class Material3Theme extends BaseTheme {
   @override
-  ThemeData themeData() {
+  ThemeData theme() {
     return ThemeData.light().copyWith(useMaterial3: true);
   }
 

@@ -11,6 +11,7 @@ echo -n "请输入项目名称:"
 read projectName
 echo -n "请输入项目包名:"
 read packageName
+cd './../../'
 echo "正在创建 $projectName :"
 flutter create --org $packageName $projectName
 echo "正在初始化 $projectName :"

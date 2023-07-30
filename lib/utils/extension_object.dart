@@ -33,6 +33,7 @@ extension ExtensionLog on Object? {
     if (this == null) return;
     _logger.log(Level.wtf, this);
   }
+
 }
 
 extension ExtensionList on List? {

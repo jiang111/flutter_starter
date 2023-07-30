@@ -24,8 +24,7 @@ void main() async {
     ),
   );
   if (Platform.isAndroid) {
-    SystemUiOverlayStyle style =
-        const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemUiOverlayStyle style = const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(style);
   }
 }
@@ -44,8 +43,7 @@ class MyApp extends ConsumerWidget {
         headerBuilder: () => const ClassicHeader(),
         footerBuilder: () => const ClassicFooter(),
         headerTriggerDistance: 80.0,
-        springDescription:
-            const SpringDescription(stiffness: 170, damping: 16, mass: 1.9),
+        springDescription: const SpringDescription(stiffness: 170, damping: 16, mass: 1.9),
         maxOverScrollExtent: 100,
         maxUnderScrollExtent: 0,
         enableScrollWhenRefreshCompleted: true,
@@ -55,7 +53,7 @@ class MyApp extends ConsumerWidget {
         child: MaterialApp.router(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
-          theme: ref.watch(themeProvider).themeData(),
+          theme: ref.watch(themeProvider).theme(),
           locale: const Locale('zh'),
           localizationsDelegates: const [
             RefreshLocalizations.delegate,
@@ -64,7 +62,8 @@ class MyApp extends ConsumerWidget {
             GlobalWidgetsLocalizations.delegate,
           ],
           supportedLocales: const [
-            Locale('zh'),
+            Locale('zh', 'CN'),
+            Locale('en', 'US'),
           ],
           builder: (context, child) {
             return FlutterEasyLoading(
