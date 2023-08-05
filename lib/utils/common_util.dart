@@ -5,23 +5,34 @@ import '../utils/extension_string.dart';
 import '../base/http.dart';
 
 typedef CommitFunction<T> = Future<T> Function();
-typedef CompleteFunction<T> = void Function(T t);
+typedef SuccessFunction<T> = Future<void> Function(T t);
+typedef FailFunction = Future<void> Function(Exception t);
 
 Future<void> commit<T>(
   CommitFunction<T> commit, {
-  String? success,
-  CompleteFunction<T>? after,
+  SuccessFunction<T>? success,
+  FailFunction? failed,
 }) async {
   try {
     "提交中...".eLoading();
     var result = await commit();
-    success.eSuccess();
-    if (after != null) {
-      after(result);
+    if (success != null) {
+      await success(result);
     }
   } on ApiException catch (e) {
     eDismiss();
-    e.message.eFail();
+    if (failed != null) {
+      await failed(e);
+    } else {
+      e.message.eFail();
+    }
+  } on Exception catch (e) {
+    eDismiss();
+    if (failed != null) {
+      await failed(e);
+    } else {
+      e.toString().eFail();
+    }
   }
 }
 

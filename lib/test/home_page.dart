@@ -71,17 +71,19 @@ class HomePage extends ConsumerWidget {
                   Initial.alice.showInspector();
                 }),
             CupertinoButton(
-                child: const Text("网络请求"),
-                onPressed: () async {
-                  commit<String?>(
-                      () async {
-                        return Http().get<String>("https://newtab.work", isolate: true);
-                      },
-                      success: "提交成功",
-                      after: (t) {
-                        t?.i();
-                      });
-                }),
+              child: const Text("网络请求"),
+              onPressed: () async {
+                commit<String?>(
+                  () async {
+                    return Http().get<String>("https://newtab.work", isolate: true);
+                  },
+                  success: (t) async {
+                    t?.toast();
+                    t?.i();
+                  },
+                );
+              },
+            ),
             "选择时间"
                 .toText(
               style: BaseTheme.of(ref).xff00ff().textStyle(),
