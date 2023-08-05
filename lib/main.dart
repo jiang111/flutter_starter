@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_starter/utils/common_utils.dart';
+import 'package:flutter_starter/utils/common_util.dart';
 import './base/theme.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 

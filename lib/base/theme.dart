@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../utils/sp_utils.dart';
+import '../utils/sp_util.dart';
 
 final themeProvider = StateNotifierProvider<ThemeViewModel, BaseTheme>((ref) {
   return ThemeViewModel(LightTheme());

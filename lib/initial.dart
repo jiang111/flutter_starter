@@ -1,7 +1,7 @@
 import 'package:alice/alice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_starter/utils/sp_utils.dart';
+import 'package:flutter_starter/utils/sp_util.dart';
 
 import 'base/http.dart';
 

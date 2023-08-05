@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker_bdaya/flutter_datetime_picker_bdaya.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter/utils/extension_widget.dart';
 import '../base/theme.dart';
@@ -7,7 +8,7 @@ import '../base/theme.dart';
 import '../base/http.dart';
 import '../base/router.dart';
 import '../initial.dart';
-import '../utils/utils.dart';
+import '../utils/util.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -81,6 +82,18 @@ class HomePage extends ConsumerWidget {
                         t?.i();
                       });
                 }),
+            "选择时间"
+                .toText(
+              style: BaseTheme.of(ref).xff00ff().textStyle(),
+            )
+                .click(
+              () async {
+                var result = await DatePickerBdaya.showDatePicker(context, locale: LocaleType.zh);
+                result?.toIso8601String().toast();
+              },
+            ).container(
+              padding: 15.paddingAll(),
+            ),
           ],
         ),
       ),

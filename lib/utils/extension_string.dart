@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_starter/utils/extension_widget.dart';
-import 'package:flutter_starter/utils/utils.dart';
+import 'package:flutter_starter/utils/util.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 ///easyLoading 和 flutter_toast 扩展
