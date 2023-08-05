@@ -29,9 +29,9 @@ void hideKeyboard(BuildContext context) {
   FocusScope.of(context).requestFocus(FocusNode());
 }
 
-void popAllPage(BuildContext context) {
+void popAllPageAndPushNewPage(BuildContext context, String page) {
   while (context.canPop()) {
     context.pop();
   }
-  // context.pushReplacement("/login");
+  context.pushReplacement("/login");
 }
