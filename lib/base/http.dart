@@ -6,6 +6,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../generated/json/base/json_convert_content.dart';
 import '../initial.dart';
+import '../main.dart';
 
 ///data指的是返回的数据
 typedef InterceptorResponse = Future<T?> Function<T>(dynamic data);
@@ -146,9 +147,7 @@ class Http {
       );
       return _handleResponseData<T>(response, isolate, interceptorResponse);
     } on DioException catch (e) {
-      throw ApiException(
-          code: e.response?.statusCode ?? 0,
-          message: e.message ?? DioConfig.unKnowError);
+      throw ApiException(code: e.response?.statusCode ?? 0, message: e.message ?? DioConfig.unKnowError);
     } on ApiException {
       rethrow;
     } catch (e) {
@@ -176,8 +175,7 @@ class Http {
     );
   }
 
-  Future<T?> _handleResponseData<T>(Response response, bool isolate,
-      InterceptorResponse? interceptorResponse) async {
+  Future<T?> _handleResponseData<T>(Response response, bool isolate, InterceptorResponse? interceptorResponse) async {
     int code = response.statusCode ?? 0;
     if (code >= 200 && code < 300) {
       var data = response.data;
@@ -192,15 +190,12 @@ class Http {
         if (interceptorResponse != null) {
           return await interceptorResponse(data);
         } else {
-          var (interceptorSuccess, result) =
-              DioConfig.interceptorSpecialTypeResponse<T>(data);
+          var (interceptorSuccess, result) = DioConfig.interceptorSpecialTypeResponse<T>(data);
           if (interceptorSuccess) {
             return result;
           }
           if (isolate) {
-            return await compute<dynamic, T?>(
-                (data) => JsonConvert.fromJsonAsT<T>(data),
-                data[DioConfig.data]);
+            return await compute<dynamic, T?>((data) => JsonConvert.fromJsonAsT<T>(data), data[DioConfig.data]);
           } else {
             return JsonConvert.fromJsonAsT<T>(data[DioConfig.data]);
           }
@@ -209,8 +204,7 @@ class Http {
         throw ApiException(code: -1002, message: DioConfig.unKnowErrorJson);
       }
     } else {
-      throw ApiException(
-          code: code, message: response.statusMessage ?? DioConfig.unKnowError);
+      throw ApiException(code: code, message: response.statusMessage ?? DioConfig.unKnowError);
     }
   }
 }

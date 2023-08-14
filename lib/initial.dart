@@ -1,16 +1,13 @@
 import 'package:alice/alice.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_starter/utils/sp_util.dart';
-
-import 'base/http.dart';
+import 'base.dart';
 
 class Initial {
   static String baseUrl = "";
   static Alice alice = Alice(
-    showNotification: true,
-    showInspectorOnShake: true,
-    showShareButton: true,
+    showNotification: isDebug,
+    showInspectorOnShake: isDebug,
+    showShareButton: isDebug,
   );
 
   static Future<void> init() async {

@@ -1,17 +1,14 @@
 import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_starter/utils/common_util.dart';
-import './base/theme.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import 'base/components/riverpod/provider_log.dart';
-import 'base/router.dart';
-import 'initial.dart';
+import 'base.dart';
+
+bool isDebug = !kReleaseMode;
+bool isAndroid = Platform.isAndroid;
+bool isIOS = Platform.isIOS;
 
 void main() async {
   await Initial.init();

@@ -1,14 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker_bdaya/flutter_datetime_picker_bdaya.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_starter/utils/extension_widget.dart';
-import '../base/theme.dart';
-
-import '../base/http.dart';
-import '../base/router.dart';
-import '../initial.dart';
-import '../utils/util.dart';
+import 'package:flutter_starter/base.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});

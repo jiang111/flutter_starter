@@ -5,7 +5,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../multi_state_widget.dart';
 import 'base_list_notify.dart';
 
-typedef WidgetBuilder<T> = Widget Function(
+typedef RiverpodWidgetBuilder<T> = Widget Function(
     BuildContext context, List<T> data, BaseListBean baseListBean);
 
 class BaseListBean {
@@ -17,7 +17,7 @@ class BaseList<T> extends ConsumerStatefulWidget {
   final AutoDisposeAsyncNotifierProviderFamily<BaseListNotify<T>, List<T>,
       BaseListBean> provider;
 
-  final WidgetBuilder<T> builder;
+  final RiverpodWidgetBuilder<T> builder;
   final bool enablePullDown;
   final bool enablePullUp;
   final dynamic arguments;
