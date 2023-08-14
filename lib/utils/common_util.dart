@@ -14,7 +14,7 @@ Future<void> commit<T>(
   FailFunction? failed,
 }) async {
   try {
-    "提交中...".eLoading();
+    "提交中...".loading();
     var result = await commit();
     if (success != null) {
       await success(result);
@@ -24,14 +24,14 @@ Future<void> commit<T>(
     if (failed != null) {
       await failed(e);
     } else {
-      e.message.eFail();
+      e.message.fail();
     }
   } on Exception catch (e) {
     eDismiss();
     if (failed != null) {
       await failed(e);
     } else {
-      e.toString().eFail();
+      e.toString().fail();
     }
   }
 }

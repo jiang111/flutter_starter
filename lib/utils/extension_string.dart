@@ -21,7 +21,7 @@ extension ExtensionString on String? {
     return !isEmpty();
   }
 
-  void eLoading() {
+  void loading() {
     if (EasyLoading.isShow) {
       EasyLoading.dismiss();
     }
@@ -44,7 +44,7 @@ extension ExtensionString on String? {
     );
   }
 
-  void eFail() {
+  void fail() {
     if (EasyLoading.isShow) {
       EasyLoading.dismiss();
     }
@@ -53,7 +53,7 @@ extension ExtensionString on String? {
     }
   }
 
-  void eSuccess() {
+  void success() {
     if (EasyLoading.isShow) {
       EasyLoading.dismiss();
     }

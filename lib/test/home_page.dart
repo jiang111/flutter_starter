@@ -25,9 +25,9 @@ class HomePage extends ConsumerWidget {
             CupertinoButton(
                 child: const Text("显示loading样式"),
                 onPressed: () {
-                  "请稍等...".eLoading();
+                  "请稍等...".loading();
                   Future.delayed(const Duration(seconds: 3), () {
-                    "提交成功".eSuccess();
+                    "提交成功".success();
                   });
                 }),
             CupertinoButton(
