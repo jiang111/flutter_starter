@@ -31,11 +31,14 @@ class DioConfig {
     if (kIsWeb) {
       return (false, null);
     }
+
+    var responseData = data[DioConfig.data];
+
     if (T.toString() == "String") {
-      return (true, jsonEncode(data[DioConfig.data]) as T?);
+      return (true, jsonEncode(responseData) as T?);
     }
     if (T.toString() == "dynamic") {
-      return (true, data[DioConfig.data] as T?);
+      return (true, responseData as T?);
     }
     return (false, null);
   }
