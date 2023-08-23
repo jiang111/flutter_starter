@@ -14,7 +14,7 @@ class ListPage extends ConsumerWidget {
         title: const Text("list"),
       ),
       body: BaseList<String>(
-        builder: (context, data, _) => ListView.separated(
+        builder: (context, data, _, __) => ListView.separated(
           padding: EdgeInsets.zero,
           itemCount: data.length,
           itemBuilder: (context, index) {
@@ -36,8 +36,7 @@ class ListPage extends ConsumerWidget {
   }
 }
 
-final listProvider = AsyncNotifierProvider.autoDispose
-    .family<ListNotify, List<String>, BaseListBean>(
+final listProvider = AsyncNotifierProvider.autoDispose.family<ListNotify, List<String>, BaseListBean>(
   () => ListNotify(),
   name: 'listProvider',
 );

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 extension ExtensionWidget on Widget {
-  Widget gesture({VoidCallback? onPressed}) {
+  Widget gesture(VoidCallback onPressed) {
     return GestureDetector(
       onTap: onPressed,
       behavior: HitTestBehavior.opaque,
@@ -9,7 +9,8 @@ extension ExtensionWidget on Widget {
     );
   }
 
-  Widget click(VoidCallback onPressed) {
+  Widget click(VoidCallback onPressed, {bool enable = true}) {
+    if (enable == false) return this;
     return CupertinoButton(
       onPressed: onPressed,
       padding: EdgeInsets.zero,
@@ -28,6 +29,13 @@ extension ExtensionWidget on Widget {
   Widget visible(bool visible) {
     return Visibility(
       visible: visible,
+      child: this,
+    );
+  }
+
+  Widget gone(bool gone) {
+    return Opacity(
+      opacity: gone ? 0 : 1,
       child: this,
     );
   }
@@ -70,5 +78,19 @@ extension ExtensionWidget on Widget {
       alignment: alignment,
       child: this,
     );
+  }
+}
+
+extension ExtensionContext on BuildContext {
+  Future<T?> cPushAndReplace<T, T0>(Widget widget, {bool needLogin = false}) async {
+    return Navigator.of(this).pushReplacement<T, T0>(CupertinoPageRoute(builder: (context) => widget));
+  }
+
+  Future<T?> cPush<T>(Widget widget, {bool needLogin = false}) async {
+    return Navigator.of(this).push<T>(CupertinoPageRoute(builder: (context) => widget));
+  }
+
+  Future<T?> cPushAndRemoveAll<T>(Widget widget, {bool needLogin = false}) async {
+    return Navigator.of(this).pushAndRemoveUntil<T>(CupertinoPageRoute(builder: (context) => widget), (route) => false);
   }
 }

@@ -1,5 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_starter/utils/extension_object.dart';
+import 'package:flutter_starter/base.dart';
 
 class ProviderLogger extends ProviderObserver {
   @override

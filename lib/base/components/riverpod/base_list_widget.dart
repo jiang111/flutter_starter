@@ -1,21 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../common_loadmore_indicator.dart';
 import '../multi_state_widget.dart';
+import '../refresh_indicator.dart';
 import 'base_list_notify.dart';
 
 typedef RiverpodWidgetBuilder<T> = Widget Function(
-    BuildContext context, List<T> data, BaseListBean baseListBean);
+    BuildContext context, List<T> data, bool hasMore, BaseListBean baseListBean);
 
 class BaseListBean {
-  RefreshController? controller;
+  CommonLoadMoreController? loadMoreController;
   dynamic data;
 }
 
 class BaseList<T> extends ConsumerStatefulWidget {
-  final AutoDisposeAsyncNotifierProviderFamily<BaseListNotify<T>, List<T>,
-      BaseListBean> provider;
+  final AutoDisposeAsyncNotifierProviderFamily<BaseListNotify<T>, List<T>, BaseListBean> provider;
 
   final RiverpodWidgetBuilder<T> builder;
   final bool enablePullDown;
@@ -36,13 +36,12 @@ class BaseList<T> extends ConsumerStatefulWidget {
 }
 
 class _BaseListState<T> extends ConsumerState<BaseList<T>> {
-  final RefreshController refreshController = RefreshController();
   late final BaseListBean _baseListBean;
 
   @override
   void initState() {
     _baseListBean = BaseListBean();
-    _baseListBean.controller = refreshController;
+    _baseListBean.loadMoreController = CommonLoadMoreController();
     _baseListBean.data = widget.arguments;
     super.initState();
   }
@@ -63,17 +62,19 @@ class _BaseListState<T> extends ConsumerState<BaseList<T>> {
               child: Text("暂无数据"),
             );
           }
-          return SmartRefresher(
+          return CRefreshIndicator(
             enablePullDown: widget.enablePullDown,
-            enablePullUp: widget.enablePullUp,
-            controller: refreshController,
-            onRefresh: () => ref
-                .watch(widget.provider(_baseListBean).notifier)
-                .loadData(refresh: true),
-            onLoading: () => ref
-                .watch(widget.provider(_baseListBean).notifier)
-                .loadData(refresh: false),
-            child: widget.builder(context, data, _baseListBean),
+            onRefresh: () async {
+              await ref.watch(widget.provider(_baseListBean).notifier).loadData(refresh: true);
+            },
+            child: CommonLoadMoreIndicator(
+                controller: _baseListBean.loadMoreController,
+                canLoadMore: widget.enablePullUp,
+                onLoadMore: () {
+                  return ref.watch(widget.provider(_baseListBean).notifier).loadData(refresh: false);
+                },
+                child: widget.builder(context, data,
+                    data.length % (ref.watch(widget.provider(_baseListBean).notifier).pageSize) == 0, _baseListBean)),
           );
         });
   }
