@@ -10,7 +10,10 @@ typedef RiverpodWidgetBuilder<T> = Widget Function(
     BuildContext context, List<T> data, bool hasMore, BaseListBean baseListBean);
 
 class BaseListBean {
+
+  //加载更多的 controller
   CommonLoadMoreController? loadMoreController;
+  //需要传递的参数
   dynamic data;
 }
 
@@ -21,12 +24,14 @@ class BaseList<T> extends ConsumerStatefulWidget {
   final bool enablePullDown;
   final bool enablePullUp;
   final dynamic arguments;
+  final BaseListBean? baseList;
 
   const BaseList({
     Key? key,
     required this.provider,
     this.arguments,
     required this.builder,
+    this.baseList,
     this.enablePullDown = true,
     this.enablePullUp = true,
   }) : super(key: key);
@@ -40,9 +45,14 @@ class _BaseListState<T> extends ConsumerState<BaseList<T>> {
 
   @override
   void initState() {
-    _baseListBean = BaseListBean();
-    _baseListBean.loadMoreController = CommonLoadMoreController();
-    _baseListBean.data = widget.arguments;
+    if (widget.baseList == null) {
+      _baseListBean = BaseListBean();
+      _baseListBean.loadMoreController = CommonLoadMoreController();
+      _baseListBean.data = widget.arguments;
+    } else {
+      _baseListBean = widget.baseList!;
+    }
+
     super.initState();
   }
 
