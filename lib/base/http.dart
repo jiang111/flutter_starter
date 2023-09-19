@@ -148,9 +148,7 @@ class Http {
 
       return _handleResponseData<T>(response, false, null);
     } on DioException catch (e) {
-      throw ApiException(
-          code: e.response?.statusCode ?? 0,
-          message: e.message ?? DioConfig.unKnowError);
+      throw ApiException(code: e.response?.statusCode ?? 0, message: e.message ?? DioConfig.unKnowError);
     } on ApiException {
       rethrow;
     } catch (e) {
@@ -166,11 +164,9 @@ class Http {
     Function(double)? onUploadProgress,
   ) async {
     try {
-      // 初始化一个Http客户端，并加入自定义Header
       var req = await HttpClient().putUrl(Uri.parse(url));
       req.headers.add('Content-Length', file.lengthSync().toString());
       req.headers.add('Content-Type', mimeType);
-
       // 读文件
       var s = await file.open();
       var x = 0;
@@ -180,8 +176,6 @@ class Http {
         var len = size - x >= chunkSize ? chunkSize : size - x;
         var val = s.readSync(len).toList();
         x = x + len;
-        // 处理数据块
-        // val = proc(val);
         // 加入http发送缓冲区
         req.add(val);
         // 立即发送并清空缓冲区
@@ -191,9 +185,7 @@ class Http {
       await req.close();
       await req.done;
     } on DioException catch (e) {
-      throw ApiException(
-          code: e.response?.statusCode ?? 0,
-          message: e.message ?? DioConfig.unKnowError);
+      throw ApiException(code: e.response?.statusCode ?? 0, message: e.message ?? DioConfig.unKnowError);
     } on ApiException {
       rethrow;
     } catch (e) {
@@ -250,8 +242,7 @@ class Http {
         int code = e.response?.statusCode ?? -1;
         String msg;
         if (e.response?.data is String) {
-          msg =
-              jsonDecode(e.response?.data ?? "{}")[DioConfig.msg] ?? e.message;
+          msg = jsonDecode(e.response?.data ?? "{}")[DioConfig.msg] ?? e.message;
         } else {
           msg = e.response?.data[DioConfig.msg] ?? e.message;
         }
@@ -286,22 +277,19 @@ class Http {
     );
   }
 
-  Future<T?> _handleResponseData<T>(Response response, bool isolate,
-      InterceptorResponse? interceptorResponse) async {
+  Future<T?> _handleResponseData<T>(Response response, bool isolate, InterceptorResponse? interceptorResponse) async {
     int code = response.statusCode ?? 0;
     var data = response.data;
     if (code >= 200 && code < 300) {
       if (interceptorResponse != null) {
         return await interceptorResponse(data);
       } else {
-        var (interceptorSuccess, result) =
-            DioConfig.interceptorSpecialTypeResponse<T>(data);
+        var (interceptorSuccess, result) = DioConfig.interceptorSpecialTypeResponse<T>(data);
         if (interceptorSuccess) {
           return result;
         }
         if (isolate) {
-          return await compute<dynamic, T?>(
-              (data) => JsonConvert.fromJsonAsT<T>(data), data);
+          return await compute<dynamic, T?>((data) => JsonConvert.fromJsonAsT<T>(data), data);
         } else {
           return JsonConvert.fromJsonAsT<T>(data);
         }
