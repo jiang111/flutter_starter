@@ -6,7 +6,21 @@ import 'dart:io';
 
 void main(List<String> host) async {
   print("构建域名: ${host.first}");
-  await WebPatch().patch(host.first);
+
+  bool fontHasLocalCache = false;
+  if (host.length >= 2) {
+    String result = host[1];
+    if (result.toLowerCase() == "true") {
+      fontHasLocalCache = true;
+    }
+  }
+
+  if (fontHasLocalCache) {
+    print("本地已经缓存了字体库");
+  } else {
+    print("本地没有缓存字体库,需要下载");
+  }
+  await WebPatch().patch(host.first, fontHasLocalCache);
 }
 
 class WebPatch {
@@ -36,8 +50,9 @@ class WebPatch {
     }
   }
 
-  Future<void> patch(String host) async {
-    projectPath = dirname(Platform.script.path).replaceAll("/bin", "");
+  Future<void> patch(String host, bool fontHasLocalCache) async {
+    projectPath = dirname(Platform.script.path);
+    projectPath = Directory(projectPath).parent.path.toString();
     fonts.clear();
     downloadFonts.clear();
     log("开始分析 main.dart.js 文件:");
@@ -60,7 +75,9 @@ class WebPatch {
         }
       }
       //处理所有的字体文件
-      await _regFont(line);
+      if (!fontHasLocalCache) {
+        await _regFont(line);
+      }
     }
     log("共找到了:${fonts.length}个字体,下载了 ${downloadFonts.length} 个字体");
 
@@ -69,7 +86,19 @@ class WebPatch {
 
     log("canvasKit 域名: $canvasKitUrl => $host/canvaskit/\":");
     await _replaceHost(canvasKitUrl, "$host/canvaskit/\":");
+    await forbidH5FocusRefresh();
     endTime();
+  }
+
+  Future<void> forbidH5FocusRefresh() async {
+    String oldContent = 'src="flutter.js"';
+    var uniqueId = DateTime.now().millisecondsSinceEpoch;
+
+    String newContent = 'src="flutter.js?version=$uniqueId"';
+    final file = File(join(projectPath, webBuildDir, "index.html"));
+    final lines = file.readAsLinesSync();
+    final updatedLines = lines.map((line) => line.replaceAll(oldContent, newContent));
+    file.writeAsStringSync(updatedLines.join('\n'));
   }
 
   Future<String?> _findOneFont(String url) async {
