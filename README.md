@@ -1,9 +1,6 @@
 # flutter_starter
 
-a starter base on myself project
-
-本人使用的flutter项目构建模板
-
+a flutter template base on myself project
 
 
 - ⚡️ [Flutter](https://github.com/flutter/flutter), [Dart](https://github.com/dart-lang) - Build apps for any screen
@@ -13,7 +10,7 @@ a starter base on myself project
 - 🍍 [State Management via Riverpod](https://github.com/rrousselGit/riverpod)
 
 
-## 需要使用命令行的库
+## packages
 
 - 🎢 [change_app_package_name](https://pub.dev/packages/change_app_package_name)
 ```agsl
@@ -30,3 +27,7 @@ flutter pub run flutter_launcher_icons:main
 //监听
 flutter pub run build_runner watch
 ```
+
+- 🎢 [how to use](https://github.com/jiang111/flutter_starter/blob/main/USAGE.md)
+
+
