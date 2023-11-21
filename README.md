@@ -1,6 +1,6 @@
 # flutter_starter
 
-a flutter template base on myself project
+a flutter template base on myself project (base on 3.13.9)
 
 
 - ⚡️ [Flutter](https://github.com/flutter/flutter), [Dart](https://github.com/dart-lang) - Build apps for any screen
