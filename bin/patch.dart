@@ -4,6 +4,9 @@ import "package:path/path.dart";
 import 'package:dio/dio.dart';
 import 'dart:io';
 
+///该脚本用于解决 
+/// 1.将flutter web端字体库从 gstatic 网站下载到本地
+/// 2.每次更新 flutter web 端版本后浏览器需要清空缓存问题
 void main(List<String> host) async {
   print("构建域名: ${host.first}");
 
