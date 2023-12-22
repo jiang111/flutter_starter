@@ -32,17 +32,14 @@ flutter pub run build_runner watch
 
 - 🎢 如何打包
 ```agsl
-
-//build web
 bash script/build_web.sh
-//build apk
-make apk
-//build ios
-make ipa
 
+make apk
+
+make ipa
 ```
 
-for more build command see [build_web.sh](script/build_web.sh)
+for more build command see [build_web.sh](script/build_web.sh) <br />
 for more build command see [Makefile](./Makefile)
 
 
