@@ -30,4 +30,19 @@ flutter pub run build_runner watch
 
 - 🎢 [how to use](https://github.com/jiang111/flutter_starter/blob/main/USAGE.md)
 
+- 🎢 如何打包
+```agsl
+
+//build web
+bash script/build_web.sh
+//build apk
+make apk
+//build ios
+make ipa
+
+```
+
+for more build command see [build_web.sh](script/build_web.sh)
+for more build command see [Makefile](./Makefile)
+
 
