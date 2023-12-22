@@ -1,6 +1,6 @@
 # flutter_starter
 
-a flutter template base on myself project (base on 3.13.9)
+a flutter template base on myself project (base on 3.16.0)
 
 
 - ⚡️ [Flutter](https://github.com/flutter/flutter), [Dart](https://github.com/dart-lang) - Build apps for any screen
@@ -30,7 +30,8 @@ flutter pub run build_runner watch
 
 - 🎢 [how to use](https://github.com/jiang111/flutter_starter/blob/main/USAGE.md)
 
-- 🎢 如何打包
+## build
+
 ```agsl
 bash script/build_web.sh
 
