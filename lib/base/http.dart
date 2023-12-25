@@ -22,13 +22,8 @@ class DioConfig {
   static String code = "code";
   static String msg = "message";
 
-  ///data参数指的是返回的完整的数据体
+  ///data参数指的是返回的完整的数据体,需自行处理除状态行外的其他状态
   static (bool, T?) interceptorSpecialTypeResponse<T>(dynamic data) {
-    //T.toString()不支持web
-    if (kIsWeb) {
-      return (false, null);
-    }
-
     var responseData = data;
 
     if (T.toString() == "void") {
