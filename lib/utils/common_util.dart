@@ -16,22 +16,17 @@ Future<void> commit<T>(
   try {
     "提交中...".loading();
     var result = await commit();
+    ///当返回 result 了，就代表肯定是成功了，失败全部走 Exception
     if (success != null) {
       await success(result);
     }
+    ///在调用接口时，所有的 Exception 都会被处理成ApiException
   } on ApiException catch (e) {
     eDismiss();
     if (failed != null) {
       await failed(e);
     } else {
       e.message.fail();
-    }
-  } on Exception catch (e) {
-    eDismiss();
-    if (failed != null) {
-      await failed(e);
-    } else {
-      e.toString().fail();
     }
   }
 }
