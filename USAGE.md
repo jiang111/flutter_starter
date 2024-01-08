@@ -1,3 +1,17 @@
+
+## 打包
+
+```shell
+make apk
+make ipa
+```
+
+## web端打包
+```shell
+bash script/build_web.sh
+
+```
+
 ## 打印日志
 
 

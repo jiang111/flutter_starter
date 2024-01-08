@@ -16,6 +16,12 @@ echo "正在创建 $projectName :"
 flutter create --org $packageName $projectName
 echo "正在初始化 $projectName :"
 cd $projectName
+echo "正在初始化Makefile:"
+cp -r ./../flutter_starter/Makefile ./
+mkdir script
+echo "正在初始化脚本代码:"
+cp -r ./../flutter_starter/script/* ./script/
+rm -rf ./script/flutter_starter.sh
 echo "正在初始化基础架构代码:"
 cp -r ./../flutter_starter/lib/* ./lib/
 echo "正在调整文件内容:"
