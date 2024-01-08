@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
 
 import '../utils/extension_string.dart';
 import '../base/http.dart';
@@ -16,10 +15,12 @@ Future<void> commit<T>(
   try {
     "提交中...".loading();
     var result = await commit();
+
     ///当返回 result 了，就代表肯定是成功了，失败全部走 Exception
     if (success != null) {
       await success(result);
     }
+
     ///在调用接口时，所有的 Exception 都会被处理成ApiException
   } on ApiException catch (e) {
     eDismiss();
@@ -33,11 +34,4 @@ Future<void> commit<T>(
 
 void hideKeyboard(BuildContext context) {
   FocusScope.of(context).requestFocus(FocusNode());
-}
-
-void popAllPageAndPushNewPage(BuildContext context, String page) {
-  while (context.canPop()) {
-    context.pop();
-  }
-  context.pushReplacement("/login");
 }

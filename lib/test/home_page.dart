@@ -66,6 +66,26 @@ class HomePage extends ConsumerWidget {
                     Initial.alice.showInspector();
                   }),
               CupertinoButton(
+                  child: const Text(
+                    "通用对话框",
+                  ),
+                  onPressed: () {
+                    F.animatedDialog(Center(
+                      child: Container(
+                        color: Colors.red,
+                        width: F.width * 0.8,
+                        height: F.height * 0.5,
+                        child: const Text(
+                          "test",
+                          style: TextStyle(
+                            color: Color(0xFF3B3552),
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ));
+                  }),
+              CupertinoButton(
                 child: const Text("网络请求"),
                 onPressed: () async {
                   commit<String?>(

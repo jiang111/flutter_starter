@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_starter/base.dart';
 import 'package:flutter_starter/base/router.dart';
 
 import '../base/components/defer_init.dart';
@@ -15,8 +16,10 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   @override
   void initState() {
     super.initState();
+
+    Initial.setAliceNavigatorKey(F.navigatorKey);
     Future.delayed(const Duration(seconds: 2), () {
-      appRouter.pushReplacement("/home");
+      appRouter.pushReplacementNamed(RoutePaths.home);
     });
   }
 

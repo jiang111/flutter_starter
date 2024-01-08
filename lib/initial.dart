@@ -1,5 +1,6 @@
 import 'package:alice/alice.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:go_router/go_router.dart';
 import 'base.dart';
 
 class Initial {
@@ -14,6 +15,7 @@ class Initial {
     WidgetsFlutterBinding.ensureInitialized();
     await SpUtil.getInstance();
     Http.init(baseUrl: baseUrl);
+    GoRouter.optionURLReflectsImperativeAPIs = true;
     //全局竖屏处理
     await SystemChrome.setPreferredOrientations(
       [
@@ -21,5 +23,12 @@ class Initial {
         DeviceOrientation.portraitDown,
       ],
     );
+  }
+
+  static void setAliceNavigatorKey(GlobalKey<NavigatorState> navigatorKey) {
+    if (kIsWeb) {
+      return;
+    }
+    alice.setNavigatorKey(navigatorKey);
   }
 }

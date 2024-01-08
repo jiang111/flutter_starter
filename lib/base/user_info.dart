@@ -1,4 +1,3 @@
-import 'dart:math';
 
 class UserInfo {
   //单例
@@ -12,6 +11,6 @@ class UserInfo {
   UserInfo._();
 
   bool isLogin() {
-    return Random().nextBool();
+    return true;
   }
 }
