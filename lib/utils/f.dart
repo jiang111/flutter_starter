@@ -19,6 +19,14 @@ class _FImpl {
 
   get height => MediaQuery.sizeOf(context).height;
 
+  String formatTime(int ms) {
+    return DateUtil.formatDateMs(ms, format: "yyyy-MM-dd HH:mm:ss");
+  }
+
+  bool isLogin() {
+    return UserInfo.instance().isLogin();
+  }
+
   void hideKeyboard() {
     FocusScope.of(context).requestFocus(FocusNode());
   }

@@ -19,7 +19,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
 
     Initial.setAliceNavigatorKey(F.navigatorKey);
     Future.delayed(const Duration(seconds: 2), () {
-      appRouter.pushReplacementNamed(RoutePaths.home);
+      appRouter.pushReplacement(RoutePaths.home);
     });
   }
 

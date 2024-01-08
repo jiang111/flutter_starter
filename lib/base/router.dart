@@ -29,41 +29,33 @@ final appRouter = GoRouter(
   routes: [
     GoRoute(
       path: RoutePaths.main,
-      name: RoutePaths.main,
       builder: (context, state) => const SplashPage(),
     ),
     GoRoute(
       path: RoutePaths.home,
-      name: RoutePaths.home,
       builder: (context, state) => const HomePage(),
     ),
     GoRoute(
       path: RoutePaths.login,
-      name: RoutePaths.login,
       builder: (context, state) => const LoginPage(),
     ),
     GoRoute(
       path: RoutePaths.list,
-      name: RoutePaths.list,
       builder: (context, state) => const ListPage(),
     ),
   ],
 );
 
-FutureOr<String?> loginInterceptor(BuildContext context, GoRouterState state) async{
+FutureOr<String?> loginInterceptor(BuildContext context, GoRouterState state) async {
   for (var element in RoutePaths.ignoreInterceptor) {
     if (element == state.matchedLocation) {
       return null;
     }
   }
 
-  if (isLogin()) {
+  if (F.isLogin()) {
     return null;
   }
 
   return RoutePaths.login;
-}
-
-bool isLogin() {
-  return UserInfo.instance().isLogin();
 }
