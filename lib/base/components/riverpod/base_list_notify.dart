@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../common_loadmore_indicator.dart';
 import 'base_list_widget.dart';
 
 abstract class BaseListNotify<T> extends AutoDisposeFamilyAsyncNotifier<List<T>, BaseListBean> {
@@ -11,7 +11,7 @@ abstract class BaseListNotify<T> extends AutoDisposeFamilyAsyncNotifier<List<T>,
   int pageSize = 20;
   bool error = false;
   bool hasNoMore = false;
-  CommonLoadMoreController? loadMoreController;
+  EasyRefreshController? easyRefreshController;
   String errorMsg = '';
   dynamic params;
   CancelToken? cancelToken;
@@ -24,7 +24,7 @@ abstract class BaseListNotify<T> extends AutoDisposeFamilyAsyncNotifier<List<T>,
     ref.onDispose(() {
       dispose();
     });
-    loadMoreController = arg.loadMoreController;
+    easyRefreshController = arg.easyRefreshController;
     params = arg.data;
     await prepare();
     return await _initial();
@@ -44,9 +44,9 @@ abstract class BaseListNotify<T> extends AutoDisposeFamilyAsyncNotifier<List<T>,
 
   void resetRefreshControllerState({bool refresh = false}) {
     if (hasNoMore) {
-      loadMoreController?.disableLoadMore();
+      easyRefreshController?.finishLoad(IndicatorResult.noMore);
     } else {
-      loadMoreController?.enableLoadMore();
+      easyRefreshController?.finishLoad(IndicatorResult.success);
     }
   }
 

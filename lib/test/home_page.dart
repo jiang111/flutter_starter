@@ -63,7 +63,6 @@ class HomePage extends ConsumerWidget {
                     "网络请求日志",
                   ),
                   onPressed: () {
-                    Initial.alice.showInspector();
                   }),
               CupertinoButton(
                   child: const Text(
