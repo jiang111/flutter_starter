@@ -1,17 +1,22 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:go_router/go_router.dart';
 import 'base.dart';
+import 'base/alice/alice.dart';
 
 class Initial {
   static String baseUrl = "";
 
+
+  static Alice alice = Alice(
+    showNotification: !productMode,
+    showShareButton: !productMode,
+  );
 
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
     await SpUtil.getInstance();
     Http.init(baseUrl: baseUrl);
     configEasyRefresh();
-    GoRouter.optionURLReflectsImperativeAPIs = true;
     //全局竖屏处理
     await SystemChrome.setPreferredOrientations(
       [

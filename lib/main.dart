@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'base.dart';
@@ -10,10 +9,10 @@ import 'base.dart';
 bool isDebug = !kReleaseMode;
 bool isAndroid = Platform.isAndroid;
 bool isIOS = Platform.isIOS;
+bool productMode = false;
 
 void main() async {
   await Initial.init();
-  usePathUrlStrategy();
 
   runApp(
     ProviderScope(
