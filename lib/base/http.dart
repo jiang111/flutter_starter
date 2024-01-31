@@ -233,9 +233,26 @@ class Http {
       );
       return _handleResponseData<T>(response, isolate, interceptorResponse);
     } on DioException catch (e) {
-      int code = e.response?.statusCode ?? -1;
-      String msg = e.response?.statusMessage ?? DioConfig.unKnowError;
-      throw ApiException(code: code, message: msg);
+      if (e.type != DioExceptionType.cancel) {
+        int code = e.response?.statusCode ?? -1;
+        String msg = e.response?.statusMessage ?? DioConfig.unKnowError;
+        if (e.type == DioExceptionType.connectionTimeout) {
+          msg = "连接超时";
+        } else if (e.type == DioExceptionType.receiveTimeout) {
+          msg = "接收超时";
+        } else if (e.type == DioExceptionType.sendTimeout) {
+          msg = "发送超时";
+        } else if (e.type == DioExceptionType.connectionError) {
+          msg = "连接错误";
+        } else if (e.type == DioExceptionType.badCertificate) {
+          msg = "证书错误";
+        } else if (e.type == DioExceptionType.connectionError) {
+          msg = "连接错误";
+        }
+        throw ApiException(code: code, message: msg);
+      } else {
+        throw ApiException(code: -1000, message: "");
+      }
     } on ApiException {
       rethrow;
     } catch (e) {
