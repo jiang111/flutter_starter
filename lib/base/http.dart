@@ -233,18 +233,9 @@ class Http {
       );
       return _handleResponseData<T>(response, isolate, interceptorResponse);
     } on DioException catch (e) {
-      try {
-        int code = e.response?.statusCode ?? -1;
-        String msg;
-        if (e.response?.data is String) {
-          msg = jsonDecode(e.response?.data ?? "{}")[DioConfig.msg] ?? e.message;
-        } else {
-          msg = e.response?.data[DioConfig.msg] ?? e.message;
-        }
-        throw ApiException(code: code, message: msg);
-      } catch (e) {
-        throw ApiException(code: -1000, message: e.toString());
-      }
+      int code = e.response?.statusCode ?? -1;
+      String msg = e.response?.statusMessage ?? DioConfig.unKnowError;
+      throw ApiException(code: code, message: msg);
     } on ApiException {
       rethrow;
     } catch (e) {
