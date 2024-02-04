@@ -292,7 +292,8 @@ class Http {
           return result;
         }
         if (isolate) {
-          return await compute<dynamic, T?>((data) => JsonConvert.fromJsonAsT<T>(data), data);
+          return await Isolate.run<T?>(() => JsonConvert.fromJsonAsT<T>(data));
+          //return await compute<dynamic, T?>((data) => JsonConvert.fromJsonAsT<T>(data), data);
         } else {
           return JsonConvert.fromJsonAsT<T>(data);
         }
