@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -46,16 +47,16 @@ class DioConfig {
   static sendTimeout() => const Duration(milliseconds: 100000);
 
   static interceptors() => [
-    PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: true,
-      error: true,
-      compact: true,
-      maxWidth: 90,
-    ),
-  ];
+        PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseBody: true,
+          responseHeader: true,
+          error: true,
+          compact: true,
+          maxWidth: 90,
+        ),
+      ];
 }
 
 class Http {
@@ -79,15 +80,15 @@ class Http {
   Dio get dio => _dio;
 
   Future<T?> get<T>(
-      String path, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        CancelToken? cancelToken,
-        Options? options,
-        ProgressCallback? onReceiveProgress,
-        ProgressCallback? onSendProgress,
-        bool isolate = true,
-      }) async {
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    CancelToken? cancelToken,
+    Options? options,
+    ProgressCallback? onReceiveProgress,
+    ProgressCallback? onSendProgress,
+    bool isolate = true,
+  }) async {
     return request<T>(
       path,
       data: data,
@@ -101,15 +102,15 @@ class Http {
   }
 
   Future<T?> delete<T>(
-      String path, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        CancelToken? cancelToken,
-        Options? options,
-        ProgressCallback? onReceiveProgress,
-        ProgressCallback? onSendProgress,
-        bool isolate = true,
-      }) async {
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    CancelToken? cancelToken,
+    Options? options,
+    ProgressCallback? onReceiveProgress,
+    ProgressCallback? onSendProgress,
+    bool isolate = true,
+  }) async {
     return request<T>(
       path,
       data: data,
@@ -123,11 +124,11 @@ class Http {
   }
 
   Future<T?> uploadImage<T>(
-      String url,
-      Uint8List data,
-      String mimeType,
-      Function(double)? onUploadProgress,
-      ) async {
+    String url,
+    Uint8List data,
+    String mimeType,
+    Function(double)? onUploadProgress,
+  ) async {
     try {
       var response = await dio.put(
         url,
@@ -153,11 +154,11 @@ class Http {
 
   //支持分段上传大文件
   Future<void> upload(
-      String url,
-      File file,
-      String mimeType,
-      Function(double)? onUploadProgress,
-      ) async {
+    String url,
+    File file,
+    String mimeType,
+    Function(double)? onUploadProgress,
+  ) async {
     try {
       var req = await HttpClient().putUrl(Uri.parse(url));
       req.headers.add('Content-Length', file.lengthSync().toString());
@@ -189,18 +190,18 @@ class Http {
   }
 
   Future<T?> post<T>(
-      String path, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        CancelToken? cancelToken,
-        Options? options,
-        ProgressCallback? onReceiveProgress,
-        ProgressCallback? onSendProgress,
-        bool isolate = true,
-      }) async {
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    CancelToken? cancelToken,
+    Options? options,
+    ProgressCallback? onReceiveProgress,
+    ProgressCallback? onSendProgress,
+    bool isolate = true,
+  }) async {
     return request<T>(
       path,
-      data: data,
+      data: data ?? {},
       queryParameters: queryParameters,
       cancelToken: cancelToken,
       onReceiveProgress: onReceiveProgress,
@@ -211,16 +212,16 @@ class Http {
   }
 
   Future<T?> request<T>(
-      String path, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        CancelToken? cancelToken,
-        Options? options,
-        ProgressCallback? onReceiveProgress,
-        ProgressCallback? onSendProgress,
-        bool isolate = false,
-        InterceptorResponse? interceptorResponse,
-      }) async {
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    CancelToken? cancelToken,
+    Options? options,
+    ProgressCallback? onReceiveProgress,
+    ProgressCallback? onSendProgress,
+    bool isolate = false,
+    InterceptorResponse? interceptorResponse,
+  }) async {
     try {
       var response = await _request(
         path,
@@ -261,14 +262,14 @@ class Http {
   }
 
   Future<Response> _request(
-      String path, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        CancelToken? cancelToken,
-        ProgressCallback? onReceiveProgress,
-        ProgressCallback? onSendProgress,
-      }) async {
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onReceiveProgress,
+    ProgressCallback? onSendProgress,
+  }) async {
     return _dio.request(
       path,
       data: data,
